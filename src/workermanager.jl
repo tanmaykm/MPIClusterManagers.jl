@@ -140,7 +140,9 @@ function Distributed.launch(mgr::MPIWorkerManager,
             end
             @info("adding worker config for rank $(rank+1)")
             configs[rank+1] = config
+            @info("added worker config for rank $(rank+1)")
             push!(mgr.stdout_ios, io)
+            @info("pushed ios for rank $(rank+1)")
         end
     end
 
