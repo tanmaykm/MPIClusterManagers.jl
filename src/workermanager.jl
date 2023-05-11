@@ -161,6 +161,7 @@ function Distributed.launch(mgr::MPIWorkerManager,
 
     # wait with timeout (https://github.com/JuliaLang/julia/issues/36217)
     launch_timeout = Distributed.worker_timeout()
+    @info("launch_timeout", launch_timeout)
     timer = Timer(launch_timeout) do t
         schedule(connections, InterruptException(), error=true)
     end
@@ -174,6 +175,7 @@ function Distributed.launch(mgr::MPIWorkerManager,
 
     # Append our configs and notify the caller
     append!(instances, configs)
+    sleep(10)
     notify(cond)
 end
 
