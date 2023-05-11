@@ -121,6 +121,7 @@ function Distributed.launch(mgr::MPIWorkerManager,
     connections = @async begin
         while isnothing(mgr.nprocs) || length(mgr.stdout_ios) < mgr.nprocs
             io = accept(server)
+            @info("accepted a connection")
             config = WorkerConfig()
             config.io = io
             config.enable_threaded_blas = params[:enable_threaded_blas]
@@ -137,6 +138,7 @@ function Distributed.launch(mgr::MPIWorkerManager,
                 mgr.nprocs = nprocs
                 resize!(configs, nprocs)
             end
+            @info("adding worker config for rank $(rank+1)")
             configs[rank+1] = config
             push!(mgr.stdout_ios, io)
         end
